@@ -1,5 +1,12 @@
+import { Route, Routes } from 'react-router';
+import Home from './pages/home/Home.jsx';
+
 function App() {
-  return <></>;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  );
 }
 
 export default App;
