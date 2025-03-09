@@ -1,6 +1,13 @@
+import { useState } from 'react';
+import Modal from './Modal.jsx';
+
 function CardItem({ item }) {
+  const [toggle, setToggle] = useState(false);
   return (
-    <div className="relative w-full mt-4 max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 ">
+    <div
+      className={`relative w-full mt-4 max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 `}
+      onClick={() => setToggle((prev) => !prev)}
+    >
       <img
         className="object-cover w-full h-full rounded-md"
         src={`https://image.tmdb.org/t/p/original${item?.backdrop_path}`}
@@ -11,6 +18,7 @@ function CardItem({ item }) {
         <h3 className="text-white text-lg font-bold">영화 제목: {item?.title}</h3>
         <p className="text-white text-sm">평점 | {item?.vote_average}</p>
       </div>
+      {toggle && <Modal item={item} />}
     </div>
   );
 }
