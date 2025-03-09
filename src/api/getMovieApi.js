@@ -17,3 +17,11 @@ export const getMovieVideo = async (movieId) => {
 
   return response.data;
 };
+
+export const getMovieDetail = async (movieId) => {
+  const response = await axios.get(
+    `${VITE_TMDB_BASE_URL}movie/${movieId}?api_key=${VITE_TMDB_API_KEY}&language=ko-KR`
+  );
+
+  return response.data;
+};
