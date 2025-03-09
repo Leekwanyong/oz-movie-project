@@ -12,7 +12,7 @@ export const getPopularMovies = async (category) => {
 
 export const getMovieVideo = async (movieId) => {
   const response = await axios.get(
-    `${VITE_TMDB_BASE_URL}movie/${movieId}/videos?api_key=${VITE_TMDB_API_KEY}&language=eu-US`
+    `${VITE_TMDB_BASE_URL}movie/${movieId}/videos?api_key=${VITE_TMDB_API_KEY}&language=en-US`
   );
 
   return response.data;
