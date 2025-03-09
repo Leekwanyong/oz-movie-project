@@ -2,6 +2,7 @@ import { useQueries } from '@tanstack/react-query';
 import { getPopularMovies } from '../../api/getMovieApi.js';
 import Slider from '../../components/common/SwiperSlider/Slider.jsx';
 import Layout from '../../layout/Layout.jsx';
+import HeroSection from './HeroSection.jsx';
 
 const CATEGORIES = ['now_playing', 'popular', 'top_rated', 'upcoming'];
 const LENGTH = [0, 1, 2, 3];
@@ -21,14 +22,13 @@ function Home() {
   const queriesData = userQueries.map((item) => item.data?.results?.map((v) => v));
   return (
     <Layout>
-      <div>
-        {CATEGORIES.map((category, index) => (
-          <div key={category} className=" flex items-start flex-col justify-between">
-            <p className="text-xl text-white font-semibold mt-4 ">{category}</p>
-            <Slider items={queriesData[index]} />
-          </div>
-        ))}
-      </div>
+      <HeroSection />
+      {CATEGORIES.map((category, index) => (
+        <div key={category} className=" flex items-start flex-col justify-between mt-16">
+          <p className="text-xl text-white font-semibold mt-8 ">{category}</p>
+          <Slider items={queriesData[index]} />
+        </div>
+      ))}
     </Layout>
   );
 }
