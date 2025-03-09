@@ -1,6 +1,6 @@
 function CardItem({ item }) {
   return (
-    <div className="relative w-full max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 ">
+    <div className="relative w-full mt-4 max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 ">
       <img
         className="object-cover w-full h-full rounded-md"
         src={`https://image.tmdb.org/t/p/original${item?.backdrop_path}`}

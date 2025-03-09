@@ -7,4 +7,5 @@ module.exports = {
   white: '#FFFFFF',
   blue: '#0071EB',
   overlay: 'rgba(0, 0, 0, 0.6)',
+  transparent: 'rgba(109, 109, 110, 0.7)',
 };
