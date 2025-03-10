@@ -1,4 +1,5 @@
 import { useQueries } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { getPopularMovies } from '../api/getMovieApi.js';
 
 const CATEGORIES = ['now_playing', 'popular', 'top_rated', 'upcoming'];
@@ -13,7 +14,12 @@ function useGetQueriesData() {
       };
     }),
   });
-  return { CATEGORIES, userQueriesList };
+
+  const queriesData = useMemo(
+    () => userQueriesList.map((item) => item.data?.results?.map((v) => v)),
+    [userQueriesList]
+  );
+  return { CATEGORIES, queriesData };
 }
 
 export default useGetQueriesData;
