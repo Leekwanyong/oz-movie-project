@@ -16,6 +16,7 @@ function HeroSection() {
     <section className="w-full h-[50rem] relative " onMouseMove={() => setPlayer(true)}>
       {video?.map((item) => (
         <ReactPlayer
+          key={item?.id}
           url={`https://www.youtube.com/embed/${item?.key}`}
           width="100%"
           height="100%"

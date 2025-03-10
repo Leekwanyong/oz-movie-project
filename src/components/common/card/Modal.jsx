@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import React, { useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import ReactPlayer from 'react-player';
 import { getMovieDetail } from '../../../api/getMovieApi.js';
@@ -12,6 +13,8 @@ function Modal({ item }) {
     queryKey: ['movieDetail'],
     queryFn: () => getMovieDetail(item?.id),
   });
+
+  const genresMemo = useMemo(() => data?.genres ?? [], [data]);
 
   return createPortal(
     <div className="fixed top-0 left-0 w-full h-full bg-black/70 backdrop-blur-lg flex items-center justify-center z-50">
@@ -36,7 +39,7 @@ function Modal({ item }) {
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <span>장르:</span>
-            {data?.genres.map((genre) => (
+            {genresMemo.map((genre) => (
               <span key={genre?.id} className=" py-1 bg-gray-700 rounded-md">
                 {genre?.name}
               </span>

@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import Search from '../components/common/Icon/Search.jsx';
 import useScroll from '../hook/useScroll.js';
 
 function Header() {
   const scroll = useScroll();
-  const navigate = useNavigate();
   const searchRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -33,9 +32,11 @@ function Header() {
                 홈
               </li>
             </Link>
-            <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
-              영화
-            </li>
+            <Link to="/movies">
+              <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
+                영화
+              </li>
+            </Link>
           </ul>
         </nav>
 

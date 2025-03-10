@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Modal from './Modal.jsx';
 
-function CardItem({ item }) {
+function SlideMovieCard({ item }) {
   const [toggle, setToggle] = useState(false);
   return (
     <div
@@ -23,4 +23,4 @@ function CardItem({ item }) {
   );
 }
 
-export default CardItem;
+export default SlideMovieCard;
