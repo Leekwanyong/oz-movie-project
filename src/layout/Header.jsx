@@ -32,9 +32,11 @@ function Header() {
                 홈
               </li>
             </Link>
-            <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
-              영화
-            </li>
+            <Link to="/movies">
+              <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
+                영화
+              </li>
+            </Link>
           </ul>
         </nav>
 
