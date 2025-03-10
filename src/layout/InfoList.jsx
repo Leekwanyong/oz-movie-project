@@ -1,8 +1,11 @@
-function InfoList({ data }) {
+import React, { useMemo } from 'react';
+
+function InfoList({ data = [] }) {
+  const memoizedData = useMemo(() => data, [data]);
   return (
     <ul>
-      {data?.map((item, i) => (
-        <li key={item + i} className="mb-2">
+      {memoizedData?.map((item) => (
+        <li key={item.label} className="mb-2">
           <p>
             {item.label} : {item.value}
           </p>
@@ -12,4 +15,4 @@ function InfoList({ data }) {
   );
 }
 
-export default InfoList;
+export default React.memo(InfoList);
