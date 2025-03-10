@@ -18,8 +18,7 @@ function Slider({ items }) {
           slidesPerView={5}
           slidesPerGroup={5}
           speed={1000}
-          loop={false}
-          autoplay={{ delay: 300000000, disableOnInteraction: false }}
+          loop={true}
           className="overflow-visible"
         >
           {items?.map((item) => (
