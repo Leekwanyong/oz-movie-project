@@ -1,17 +1,17 @@
-import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { A11y, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '../../../index.css';
 import 'swiper/css/pagination';
-import CardItem from '../card/CardItem.jsx';
+import SlideMovieCard from '../card/SlideMovieCard .jsx';
 
 function Slider({ items }) {
   return (
     <div className="mx-auto w-full">
       {items && (
         <Swiper
-          modules={[A11y, Autoplay, Navigation, Pagination]}
+          modules={[A11y, Navigation, Pagination]}
           pagination={true}
           navigation={true}
           spaceBetween={10}
@@ -23,7 +23,7 @@ function Slider({ items }) {
         >
           {items?.map((item) => (
             <SwiperSlide key={item?.id} className="group overflow-visible">
-              <CardItem item={item} />
+              <SlideMovieCard item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
