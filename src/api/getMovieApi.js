@@ -28,7 +28,7 @@ export const getMovieDetail = async (movieId) => {
 
 export const getMovieList = async (pageParam = 1) => {
   const response = await axios.get(
-    `${VITE_TMDB_BASE_URL}discover/movie?api_key=${VITE_TMDB_API_KEY}&language=ko-KR&page=${pageParam}`
+    `${VITE_TMDB_BASE_URL}discover/movie?api_key=${VITE_TMDB_API_KEY}&include_adult=false&language=ko-KR&page=${pageParam}`
   );
 
   return response.data;
