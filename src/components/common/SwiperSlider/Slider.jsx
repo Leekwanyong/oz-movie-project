@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { A11y, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,10 +7,11 @@ import '../../../index.css';
 import 'swiper/css/pagination';
 import SlideMovieCard from '../card/SlideMovieCard .jsx';
 
-function Slider({ items }) {
+function Slider({ items = [] }) {
+  const memoizer = useMemo(() => items || [], [items]);
   return (
     <div className="mx-auto w-full">
-      {items && (
+      {memoizer && (
         <Swiper
           modules={[A11y, Navigation, Pagination]}
           pagination={true}
@@ -19,9 +21,8 @@ function Slider({ items }) {
           slidesPerGroup={5}
           speed={1000}
           loop={true}
-          className="overflow-visible"
         >
-          {items?.map((item) => (
+          {memoizer?.map((item) => (
             <SwiperSlide key={item?.id} className="group overflow-visible">
               <SlideMovieCard item={item} />
             </SwiperSlide>
@@ -32,4 +33,4 @@ function Slider({ items }) {
   );
 }
 
-export default Slider;
+export default React.memo(Slider);
