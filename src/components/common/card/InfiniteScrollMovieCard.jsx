@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 function InfiniteScrollMovieCard({ item }) {
-  console.log(item, 'item');
+  const navigate = useNavigate();
+
+  const handleOnNavigate = () => {
+    navigate(`/movieDetailModal/${item.id}`);
+  };
   return (
     <section>
-      <div className="flex flex-col gap-2 cursor-pointer  h-[20rem]   border p-4 rounded-lg hover:scale-105 transition-transform hover:shadow-lg">
+      <div
+        className="flex flex-col gap-2 cursor-pointer  h-[20rem]   border p-4 rounded-lg hover:scale-105 transition-transform hover:shadow-lg"
+        onClick={handleOnNavigate}
+      >
         <img
           className="  object-cover w-full h-full rounded-lg"
           src={`https://image.tmdb.org/t/p/original${item?.backdrop_path}`}
