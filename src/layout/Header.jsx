@@ -1,24 +1,13 @@
-import { useRef, useState } from 'react';
 import { Link } from 'react-router';
-import Search from '../components/common/Icon/Search.jsx';
 import useScroll from '../hook/useScroll.js';
+import SearchBar from '../pages/home/SearchBar.jsx';
 
 function Header() {
   const scroll = useScroll();
-  const searchRef = useRef(null);
-  const [open, setOpen] = useState(false);
-
-  const handleOnOpenClick = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const handleOnFocus = () => {
-    searchRef.current.focus();
-  };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-50`}
+      className={`fixed top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-10`}
     >
       <div className="flex items-center max-w-[1880px] mx-auto ">
         <Link to="/">
@@ -39,25 +28,7 @@ function Header() {
             </Link>
           </ul>
         </nav>
-
-        <div className="relative flex items-center" onClick={handleOnFocus}>
-          <input
-            type="text"
-            className={` absolute right-0 bg-black text-white outline-none transition-all duration-300 pl-10 pr-3 py-2 ${
-              open ? 'min-w-60 opacity-100 border border-white' : 'min-w-0 opacity-0'
-            }`}
-            placeholder="검색..."
-            onBlur={handleOnOpenClick}
-            ref={searchRef}
-          />
-
-          <button
-            className={`absolute right-0 text-gray-600 cursor-pointer transition-all duration-300 ${open ? ' -translate-x-52 ' : ' -translate-x-0'}`}
-            onClick={handleOnOpenClick}
-          >
-            <Search />
-          </button>
-        </div>
+        <SearchBar />
         <ul className="flex items-center ml-4 gap-6   text-white text-sm cursor-pointer">
           <li className="hover:text-primary">로그인</li>
           <li className="hover:text-primary">회원가입</li>
