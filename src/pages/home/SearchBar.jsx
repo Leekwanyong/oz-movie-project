@@ -8,8 +8,8 @@ function SearchBar() {
   const searchRef = useRef(null);
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, DELAY);
+  const [, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,8 +42,8 @@ function SearchBar() {
     <div className="relative flex items-center" onClick={handleOnFocus}>
       <input
         type="text"
-        className={` absolute right-0 bg-black text-white outline-none transition-all duration-300 pl-10 pr-3 py-2 ${
-          open ? 'min-w-60 opacity-100 border border-white' : 'min-w-0 opacity-0'
+        className={`absolute right-0 bg-black text-white outline-none transition-all duration-300 pl-10 pr-3 py-2 ${
+          open ? 'w-40 sm:w-60 opacity-100 border border-white' : 'min-w-0 opacity-0'
         }`}
         placeholder="검색..."
         onBlur={handleOnClick}
@@ -52,7 +52,9 @@ function SearchBar() {
       />
 
       <button
-        className={`absolute right-0 text-gray-600 cursor-pointer transition-all duration-300 ${open ? ' -translate-x-52 ' : ' -translate-x-0'}`}
+        className={`absolute right-0 text-gray-600 cursor-pointer transition-all duration-300 ${
+          open ? '-translate-x-32 sm:-translate-x-52' : '-translate-x-0'
+        }`}
         onClick={handleOnOpenClick}
       >
         <Search />
