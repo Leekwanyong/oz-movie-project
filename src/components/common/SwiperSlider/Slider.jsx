@@ -11,7 +11,7 @@ function Slider({ items = [] }) {
   const memoizer = useMemo(() => items || [], [items]);
   return (
     <div className="mx-auto w-full">
-      {memoizer && (
+      {memoizer.length > 0 && (
         <Swiper
           modules={[A11y, Navigation, Pagination]}
           pagination={true}
