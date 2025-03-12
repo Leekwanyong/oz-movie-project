@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { getMovieList } from '../api/getMovieApi.js';
 
 function useInfinityQueryList() {
@@ -10,9 +11,16 @@ function useInfinityQueryList() {
       return lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined;
     },
   });
+
+  const allMovieData = useMemo(
+    () =>
+      infiniteQuery.data?.pages?.flatMap((v) => v.results.filter((a) => a.adult === false)) || [],
+    [infiniteQuery]
+  );
+
   return {
     isLoading: infiniteQuery.isLoading ?? false,
-    data: infiniteQuery.data?.pages ?? [],
+    infiniteData: allMovieData,
     isFetchingNextPage: infiniteQuery.isFetchingNextPage ?? false,
     fetchNextPage: infiniteQuery.fetchNextPage ?? (() => {}),
     hasNextPage: infiniteQuery.hasNextPage ?? false,
