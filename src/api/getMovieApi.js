@@ -33,3 +33,11 @@ export const getMovieList = async (pageParam = 1) => {
 
   return response.data;
 };
+
+export const getSearchMovies = async (value) => {
+  const response = await axios.get(
+    `${VITE_TMDB_BASE_URL}search/movie?query=${value}&api_key=${VITE_TMDB_API_KEY}&include_adult=false&language=ko-KR`
+  );
+
+  return response.data;
+};
