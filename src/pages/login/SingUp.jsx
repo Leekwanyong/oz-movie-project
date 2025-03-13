@@ -14,7 +14,7 @@ function SingUp() {
   });
   const [error, setError] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const validate = useFormValidation(value, setError, TYPE);
-  const [message, setMessage] = useState('');
+  const [setMessage] = useState('');
   const handleSignUp = useSignUp(value, setError, setMessage, validate);
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
