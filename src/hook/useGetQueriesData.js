@@ -19,7 +19,7 @@ function useGetQueriesData() {
     () => userQueriesList.map((item) => item.data?.results?.map((v) => v)),
     [userQueriesList]
   );
-  return { CATEGORIES, queriesData };
+  return { data: CATEGORIES, queriesData };
 }
 
 export default useGetQueriesData;
