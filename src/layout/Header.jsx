@@ -4,13 +4,23 @@ import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
 import { darkModeType } from '../redux/store/DarkModeSlice.js';
+import { OnLogout } from '../redux/store/LoginSlice.js';
+import { loadUserSession } from '../redux/thunk/loginThunk.js';
+import LogoutThunk from '../redux/thunk/LogoutThunk.js';
 
 function Header() {
   const scroll = useScroll();
   const [open, setOpen] = useState(false);
   const dark = useSelector((state) => state.darkMode.darkMode);
   const dispatch = useDispatch();
+  const login = useSelector((state) => state.OnLogin);
 
+  const handleLogout = () => {
+    dispatch(LogoutThunk(OnLogout));
+    setTimeout(() => {
+      dispatch(loadUserSession());
+    }, 0);
+  };
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
   };
@@ -47,9 +57,22 @@ function Header() {
           {dark ? '🌙' : '☀️'}
         </button>
         <ul className="hidden lg:flex items-center ml-4 gap-6     text-white text-sm cursor-pointer">
-          <Link to="/login">
-            <li className="hover:text-primary">로그인</li>
-          </Link>
+          <li className="hover:text-primary">
+            {login.user ? (
+              <div className="flex items-center gap-4">
+                {login.user?.app_metadata?.provider === 'google' && (
+                  <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
+                )}
+                <button type="button" onClick={handleLogout}>
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <Link to="/login">
+                <button>로그인</button>
+              </Link>
+            )}
+          </li>
           <Link to="/singup">
             <li className="hover:text-primary">회원가입</li>
           </Link>
