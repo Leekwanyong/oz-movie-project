@@ -1,18 +1,22 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
+import { darkModeType } from '../redux/store/DarkModeSlice.js';
 
 function Header() {
   const scroll = useScroll();
   const [open, setOpen] = useState(false);
+  const dark = useSelector((state) => state.darkMode.darkMode);
+  const dispatch = useDispatch();
 
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
   };
   return (
     <header
-      className={`fixed top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-10`}
+      className={`fixed  top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-10`}
     >
       <div className="flex items-center max-w-[1880px] mx-auto ">
         <Link to="/">
@@ -36,9 +40,19 @@ function Header() {
         <div className="block ml-auto">
           <SearchBar />
         </div>
+        <button
+          className="p-2  bg-gray-200 dark:bg-gray-700  ml-4"
+          onClick={() => dispatch(darkModeType())}
+        >
+          {dark ? '🌙' : '☀️'}
+        </button>
         <ul className="hidden lg:flex items-center ml-4 gap-6     text-white text-sm cursor-pointer">
-          <li className="hover:text-primary">로그인</li>
-          <li className="hover:text-primary">회원가입</li>
+          <Link to="/login">
+            <li className="hover:text-primary">로그인</li>
+          </Link>
+          <Link to="/singup">
+            <li className="hover:text-primary">회원가입</li>
+          </Link>
         </ul>
         <button onClick={handleOnToggle} className={` lg:hidden ml-4`}>
           {open ? 'x' : <p>Menu</p>}
@@ -61,7 +75,7 @@ function Header() {
           <Link to="/login" className="hover:text-primary" onClick={() => setOpen(false)}>
             로그인
           </Link>
-          <Link to="/signup" className="hover:text-primary" onClick={() => setOpen(false)}>
+          <Link to="/singup" className="hover:text-primary" onClick={() => setOpen(false)}>
             회원가입
           </Link>
         </nav>
