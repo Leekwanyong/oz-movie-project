@@ -17,10 +17,14 @@ function Slider({ items = [] }) {
           pagination={true}
           navigation={true}
           spaceBetween={10}
-          slidesPerView={5}
-          slidesPerGroup={5}
           speed={1000}
           loop={true}
+          breakpoints={{
+            1024: { slidesPerView: 5, slidesPerGroup: 5 },
+            768: { slidesPerView: 3, slidesPerGroup: 3 },
+            480: { slidesPerView: 2, slidesPerGroup: 2 },
+            0: { slidesPerView: 1, slidesPerGroup: 1 },
+          }}
         >
           {memoizer?.map((item) => (
             <SwiperSlide key={item?.id} className="group overflow-visible">
