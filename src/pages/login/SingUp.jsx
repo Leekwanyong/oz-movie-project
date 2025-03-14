@@ -14,7 +14,7 @@ function SingUp() {
   });
   const [error, setError] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const validate = useFormValidation(value, setError, TYPE);
-  const [setMessage] = useState('');
+  const [message, setMessage] = useState('');
   const handleSignUp = useSignUp(value, setError, setMessage, validate);
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
@@ -62,6 +62,7 @@ function SingUp() {
         type="password"
         label="비밀번호 확인"
       />
+      {message}
       <button
         type="submit"
         className={`w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}

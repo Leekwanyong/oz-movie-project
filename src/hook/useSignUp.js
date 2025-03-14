@@ -17,11 +17,11 @@ function useSignUp(value, setError, setMessage, validate) {
       },
     });
 
-    if (data) {
+    if (data.session) {
       navigate('/');
       setMessage('성공');
     } else {
-      setMessage(`오류${error}`);
+      setMessage(`오류: 이미 있는 회원입니다. 에러코드: ${error}`);
     }
   };
 }
