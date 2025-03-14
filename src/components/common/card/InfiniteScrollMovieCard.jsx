@@ -10,16 +10,16 @@ function InfiniteScrollMovieCard({ item }) {
   return (
     <section>
       <div
-        className="flex flex-col gap-2 cursor-pointer  h-[20rem]   border p-4 rounded-lg hover:scale-105 transition-transform hover:shadow-lg"
+        className="flex flex-col gap-2 cursor-pointer h-[25rem] p-4 rounded-lg hover:scale-105  transition-transform hover:shadow-2xl"
         onClick={handleOnNavigate}
       >
         <img
           className="  object-cover w-full h-full rounded-lg"
-          src={`https://image.tmdb.org/t/p/original${item?.backdrop_path}`}
-          alt="포스터"
+          src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
+          alt={item?.title}
         />
-        <p className="text-lg font-semibold">{item?.title}</p>
-        <p className=" text-grayDark text-sm">평점: ⭐ {item?.vote_average}</p>
+        <p className="text-lg font-semibold drop-shadow-md">{item?.title}</p>
+        <p className=" text-grayDark text-sm drop-shadow-md">평점: ⭐ {item?.vote_average}</p>
       </div>
     </section>
   );
