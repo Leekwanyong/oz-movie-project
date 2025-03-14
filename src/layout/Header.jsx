@@ -95,7 +95,7 @@ function Header() {
           open
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-10 scale-95 pointer-events-none'
-        } top-[10%] md:top-[6%] lg:hidden
+        } top-[9%] md:top-[6%] lg:hidden
 `}
       >
         <nav className="flex flex-col items-center gap-6 text-lg text-white  ">
