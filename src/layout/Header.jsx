@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
 import { darkModeType } from '../redux/store/DarkModeSlice.js';
 import { OnLogout } from '../redux/store/LoginSlice.js';
+import { loadUserSession } from '../redux/thunk/loginThunk.js';
 import LogoutThunk from '../redux/thunk/LogoutThunk.js';
 
 function Header() {
@@ -17,6 +18,10 @@ function Header() {
   const handleLogout = () => {
     dispatch(LogoutThunk(OnLogout));
   };
+
+  useEffect(() => {
+    dispatch(loadUserSession());
+  }, [dispatch, login?.user]);
 
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
