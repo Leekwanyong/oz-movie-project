@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
@@ -11,19 +11,24 @@ import LogoutThunk from '../redux/thunk/LogoutThunk.js';
 function Header() {
   const scroll = useScroll();
   const [open, setOpen] = useState(false);
-  const dark = useSelector((state) => state.darkMode.darkMode);
+  const dark = useSelector((state) => state.darkMode.darkMode, shallowEqual);
   const dispatch = useDispatch();
   const login = useSelector((state) => state.OnLogin);
 
-  const handleLogout = () => {
-    dispatch(LogoutThunk(OnLogout));
-    setTimeout(() => {
-      dispatch(loadUserSession());
-    }, 0);
+  const handleLogout = async () => {
+    try {
+      dispatch(LogoutThunk(OnLogout));
+      await dispatch(loadUserSession());
+    } catch (e) {
+      console.log(e);
+    }
   };
+
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
   };
+
+  console.log(login.user);
   return (
     <header
       className={`fixed  top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-10`}
@@ -56,13 +61,11 @@ function Header() {
         >
           {dark ? '🌙' : '☀️'}
         </button>
-        <ul className="hidden lg:flex items-center ml-4 gap-6     text-white text-sm cursor-pointer">
+        <ul className="hidden lg:flex items-center ml-4 gap-8     text-white text-sm cursor-pointer">
           <li className="hover:text-primary">
             {login.user ? (
-              <div className="flex items-center gap-4">
-                {login.user?.app_metadata?.provider === 'google' && (
-                  <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
-                )}
+              <div className="flex items-center gap-8">
+                <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
                 <button type="button" onClick={handleLogout}>
                   로그아웃
                 </button>
