@@ -59,6 +59,14 @@ function Modal() {
             <p>출시 날짜: {data?.release_date}</p>
             <p>평점: ⭐ {data?.vote_average}</p>
           </div>
+          <div>
+            <button
+              className="text-primary font-bold text-xl w-full bg-transparent/20 rounded-md"
+              onClick={closeModal}
+            >
+              X
+            </button>
+          </div>
           <div className="flex items-center gap-4 sm:gap-2 text-sm text-gray-400">
             <span>장르:</span>
             {genresMemo.map((genre) => (
