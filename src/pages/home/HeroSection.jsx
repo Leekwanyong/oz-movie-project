@@ -9,7 +9,7 @@ import useVideoFilter from '../../hook/useVideoFilter.js';
 const MOVIE_ID = ['950396', '1064213', '822119', '823219'];
 function HeroSection() {
   const random = MOVIE_ID[Math.floor(Math.random() * MOVIE_ID.length)];
-  const [randomId, setRandomId] = useState(random);
+  const [randomId] = useState(random);
   const data = useGetMovieQuery(randomId);
   const video = useVideoFilter(data);
   const [player, setPlayer] = useState(false);
@@ -20,7 +20,7 @@ function HeroSection() {
   };
 
   return (
-    <section className="w-full h-[50rem] relative " onMouseMove={() => setPlayer(true)}>
+    <section className="w-full h-[50rem]  relative " onMouseMove={() => setPlayer(true)}>
       {video?.map((item) => (
         <ReactPlayer
           key={item?.id}
@@ -35,14 +35,14 @@ function HeroSection() {
         <div className="absolute top-[70%] left-[2%]" key={item?.id}>
           <div className="flex items-center justify-between gap-8 font-semibold">
             <button
-              className="bg-white text-black px-10 py-4 rounded-md flex items-center gap-2"
+              className="bg-white text-black rounded-md flex items-center gap-2 px-7 py-4  md:px-6  text-[12px] lg:px-12"
               onClick={handlePlay}
             >
               <Play />
               재생
             </button>
             <button
-              className="bg-transparent text-white px-10 py-4 rounded-md flex items-center gap-2"
+              className="bg-transparent text-black rounded-md flex items-center gap-2 px-7 py-4 md:px-6  text-[12px] lg:px-12"
               onClick={handlePlay}
             >
               <Information />
