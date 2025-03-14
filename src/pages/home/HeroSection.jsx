@@ -20,7 +20,7 @@ function HeroSection() {
   };
 
   return (
-    <section className="w-full h-[50rem]  relative " onMouseMove={() => setPlayer(true)}>
+    <section className="w-full h-[50rem] mt-20  relative " onMouseMove={() => setPlayer(true)}>
       {video?.map((item) => (
         <ReactPlayer
           key={item?.id}
