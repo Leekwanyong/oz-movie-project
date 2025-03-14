@@ -25,7 +25,8 @@
 - await dispatch(loadUserSession());을 추가하여 **Redux 상태가 업데이트된 후** 홈으로 이동하도록 수정.
 - 만약 await 없이 navigate("/")를 먼저 실행하면,**UI가 업데이트되지 않아 새로고침을 해야 정상적으로 로그인 상태가 반영됨.**
 
-### ✍ **이유:**현재 앱의 useEffect에서 Supabase 세션을 가져와 Redux 상태를 업데이트합니다.하지만 await dispatch(loadUserSession());가 없다면 다음과 같은 문제가 발생할 수 있습니다.
+### ✍ **이유:**현재 앱의 useEffect에서 Supabase 세션을 가져와 Redux 상태를 업데이트
+## 하지만 await dispatch(loadUserSession());가 없다면 다음과 같은 문제가 발생할 수 있다.
 
 1. **세션이 존재하면 Redux 상태 업데이트 요청을 보냄** (하지만 이는 비동기 처리라 시간이 걸림)
 2. **Redux 상태가 업데이트되기 전에 navigate("/")가 실행됨**
