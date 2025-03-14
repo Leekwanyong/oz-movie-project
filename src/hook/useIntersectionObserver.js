@@ -17,6 +17,10 @@ function useIntersectionObserver(hasNextPage, fetchNextPage) {
   }, [hasNextPage, fetchNextPage]);
 
   useEffect(() => {
+    if (!observerRef.current) {
+      return;
+    }
+
     const observer = callback();
     observer.observe(observerRef.current);
 
