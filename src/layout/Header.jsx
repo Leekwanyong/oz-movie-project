@@ -5,7 +5,6 @@ import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
 import { darkModeType } from '../redux/store/DarkModeSlice.js';
 import { OnLogout } from '../redux/store/LoginSlice.js';
-import { loadUserSession } from '../redux/thunk/loginThunk.js';
 import LogoutThunk from '../redux/thunk/LogoutThunk.js';
 
 function Header() {
@@ -17,7 +16,6 @@ function Header() {
 
   const handleLogout = async () => {
     await dispatch(LogoutThunk());
-    await dispatch(loadUserSession());
     dispatch(OnLogout());
   };
 

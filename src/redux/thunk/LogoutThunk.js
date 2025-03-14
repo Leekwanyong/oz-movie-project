@@ -1,10 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import supabase from '../../../supabaseClient.js';
 
-const LogoutThunk = createAsyncThunk('logout', async ({ rejectWithValue }) => {
+const LogoutThunk = createAsyncThunk('logout', async (_, { rejectWithValue }) => {
   try {
     const { error } = await supabase.auth.signOut();
-
     if (error) {
       return rejectWithValue(error.message);
     }
