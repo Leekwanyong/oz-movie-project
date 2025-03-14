@@ -25,10 +25,13 @@ function Modal() {
   const hasVideo = Array.isArray(filteredVideos) && filteredVideos.length > 0;
   return createPortal(
     <div
-      className="fixed top-0 left-0 w-full h-full  bg-black/20 backdrop-blur-lg flex items-center justify-center z-50"
+      className="fixed top-0 left-0 w-full h-full mx-auto  bg-black/20 backdrop-blur-lg flex items-center justify-center z-50"
       onClick={closeModal}
     >
-      <div className="bg-[#181818] rounded-lg shadow-lg w-[90vw] h-[90vh] max-w-[1000px] max-h-[1000px] overflow-hidden">
+      <div
+        className="bg-[#181818] rounded-lg shadow-lg w-[90vw] h-[90vh] max-w-[1000px] max-h-[1000px] overflow-hidden sm:w-[95vw] sm:h-[80vh] sm:max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="w-full aspect-video">
           {hasVideo ? (
             filteredVideos?.map((video) => (
@@ -50,16 +53,16 @@ function Modal() {
           )}
         </div>
 
-        <div className="p-6 flex flex-col gap-4 text-white">
-          <h2 className="text-2xl font-bold">{data?.title}</h2>
+        <div className="p-6 flex flex-col gap-4 sm:gap-2 text-white">
+          <h2 className="text-2xl font-bold sm:text-xl">{data?.title}</h2>
           <div className="flex items-center gap-4 text-sm text-gray-400">
             <p>출시 날짜: {data?.release_date}</p>
             <p>평점: ⭐ {data?.vote_average}</p>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center gap-4 sm:gap-2 text-sm text-gray-400">
             <span>장르:</span>
             {genresMemo.map((genre) => (
-              <span key={genre?.id} className=" py-1 bg-gray-700 rounded-md">
+              <span key={genre?.id} className="py-1 bg-gray-700 rounded-md sm:px-2 sm:py-0.5">
                 {genre?.name}
               </span>
             ))}
