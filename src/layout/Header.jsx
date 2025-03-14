@@ -80,28 +80,36 @@ function Header() {
             <li className="hover:text-primary">회원가입</li>
           </Link>
         </ul>
-        <button onClick={handleOnToggle} className={` lg:hidden ml-4`}>
-          {open ? 'x' : <p>Menu</p>}
-        </button>
+        <div className="flex items-center lg:hidden">
+          {login.user && (
+            <div className="flex items-center gap-8">
+              <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
+            </div>
+          )}
+          <button onClick={handleOnToggle} className={`ml-4`}>
+            {open ? 'x' : <p>Menu</p>}
+          </button>
+        </div>
       </div>
       <div
-        className={`lg:hidden fixed top-[10%] left-0 w-full  bg-black/90 flex flex-col items-center justify-center transition-transform duration-300 ${
+        className={` fixed left-0 w-full bg-black/90 flex flex-col items-center justify-center transition-transform duration-300 ${
           open
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-10 scale-95 pointer-events-none'
-        }`}
+        } top-[10%] md:top-[6%] lg:hidden
+`}
       >
-        <nav className="flex flex-col items-center gap-6 text-lg text-white">
-          <Link to="/" className="hover:text-primary" onClick={() => setOpen(false)}>
+        <nav className="flex flex-col items-center gap-6 text-lg text-white  ">
+          <Link to="/" className="hover:text-primary  " onClick={() => setOpen(false)}>
             홈
           </Link>
-          <Link to="/movies" className="hover:text-primary" onClick={() => setOpen(false)}>
+          <Link to="/movies" className="hover:text-primary " onClick={() => setOpen(false)}>
             영화
           </Link>
-          <Link to="/login" className="hover:text-primary" onClick={() => setOpen(false)}>
+          <Link to="/login" className="hover:text-primary " onClick={() => setOpen(false)}>
             로그인
           </Link>
-          <Link to="/singup" className="hover:text-primary" onClick={() => setOpen(false)}>
+          <Link to="/singup" className="hover:text-primary " onClick={() => setOpen(false)}>
             회원가입
           </Link>
         </nav>
