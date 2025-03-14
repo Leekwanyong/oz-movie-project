@@ -20,7 +20,7 @@ function useFormValidation(value, setError, type) {
     if (!value.password) {
       errors.password = '비밀번호를 입력하세요';
     } else if (!passwordRegEx.test(value.password)) {
-      errors.password = '영어 대문자/소문자 + 숫자의 조합 사용';
+      errors.password = '영어 소문자 + 숫자의 조합 사용';
     } else {
       delete errors.password;
     }

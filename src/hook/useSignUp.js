@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import supabase from '../../supabaseClient.js';
+import { loadUserSession } from '../redux/thunk/loginThunk.js';
 
 function useSignUp(value, setError, setMessage, validate) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return async (e) => {
     e.preventDefault();
     const newError = validate();
@@ -18,6 +21,7 @@ function useSignUp(value, setError, setMessage, validate) {
     });
 
     if (data.session) {
+      await dispatch(loadUserSession());
       navigate('/');
       setMessage('성공');
     } else {
