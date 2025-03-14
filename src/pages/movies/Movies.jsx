@@ -16,7 +16,7 @@ function Movies() {
   });
 
   return (
-    <div className="mt-28 grid grid-cols-4 items-center justify-between gap-4">
+    <div className="mt-28 grid grid-cols-2 lg:grid-cols-4 items-center justify-between gap-4">
       {searchParam.get('query') ? (
         data?.results?.length > 0 ? (
           data.results.map((item) => <InfiniteScrollMovieCard key={item.id} item={item} />)
