@@ -6,9 +6,8 @@ const LogoutThunk = createAsyncThunk('logout', async ({ rejectWithValue }) => {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      return new Error(error);
+      return rejectWithValue(error.message);
     }
-    console.log('Logged out');
   } catch (e) {
     return rejectWithValue(e.message);
   }

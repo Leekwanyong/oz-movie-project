@@ -37,7 +37,6 @@ const loginSlice = createSlice({
       .addCase(loadUserSession.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loading = false;
-        console.log('🟢 로그인 성공!', action.payload);
       })
       .addCase(loadUserSession.rejected, (state) => {
         state.user = null;
