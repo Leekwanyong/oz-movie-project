@@ -11,7 +11,6 @@ export const LoginThunk = createAsyncThunk(
           provider,
           options: { queryParams: { access_type: 'offline', prompt: 'consent' } },
         }));
-        console.log('1');
       } else if (provider && type === 'github') {
         ({ data, error } = await supabase.auth.signInWithOAuth({
           provider,

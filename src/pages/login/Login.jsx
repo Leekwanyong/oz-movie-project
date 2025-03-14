@@ -13,20 +13,22 @@ function Login() {
   });
   const dispatch = useDispatch();
   const [error, setError] = useState({ email: '', password: '' });
-  const validate = useFormValidation(value, setError, 'login');
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
     [value, error]
   );
   const navigate = useNavigate();
+  useFormValidation(value, setError, 'login');
 
-  const handleOnSubmit = (e, provider, type) => {
+  const handleOnSubmit = async (e, provider, type) => {
     e.preventDefault();
-    dispatch(LoginThunk({ value, provider, type }));
-    navigate('/');
-    setTimeout(() => {
-      dispatch(loadUserSession());
-    }, 100);
+    try {
+      await dispatch(LoginThunk({ value, provider, type }));
+      await dispatch(loadUserSession());
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
