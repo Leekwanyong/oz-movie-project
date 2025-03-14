@@ -82,5 +82,6 @@
 
 🚀**"완벽한 프로젝트는 없지만, 이번 경험이 다음 프로젝트를 더 잘할 수 있는 밑거름이 되었다!"**
 
-# 배포 주소
-🔗 oz-movie-project-zeta.vercel.app
+# 배포 주소  
+# 🔗 [oz-movie-project-zeta.vercel.app](https://oz-movie-project-zeta.vercel.app)
+
