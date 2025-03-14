@@ -12,7 +12,7 @@ function useIntersectionObserver(hasNextPage, fetchNextPage) {
           }
         });
       },
-      { threshold: 0 }
+      { threshold: 0.5 }
     );
   }, [hasNextPage, fetchNextPage]);
 
