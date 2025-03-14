@@ -64,7 +64,7 @@ function SingUp() {
       />
       <button
         type="submit"
-        className="w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 cursor-not-allowed"
+        className={`w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         disabled={isDisabled}
       >
         시작하기 >
