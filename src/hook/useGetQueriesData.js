@@ -9,7 +9,7 @@ function useGetQueriesData() {
       return {
         queryKey: ['slider', item],
         queryFn: async () => {
-          return await getPopularMovies(item);
+          return getPopularMovies(item);
         },
       };
     }),

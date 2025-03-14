@@ -22,10 +22,13 @@ export const LoginThunk = createAsyncThunk(
         }));
       }
 
-      if (error) {
-        return rejectWithValue(error.message);
+      if (!responseData.session) {
+        return rejectWithValue('로그인 실패');
       }
-      return responseData.session ? responseData?.session?.user : null;
+      if (error) {
+        return rejectWithValue(error);
+      }
+      return responseData.session.user;
     } catch (e) {
       return rejectWithValue(e.message);
     }

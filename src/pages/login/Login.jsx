@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/common/Input/Input.jsx';
 import useForm from '../../hook/useForm.js';
 import useFormValidation from '../../hook/useFormValidation.js';
@@ -12,12 +11,12 @@ function Login() {
     password: '',
   });
   const dispatch = useDispatch();
+  const loginError = useSelector((state) => state.OnLogin.error);
   const [error, setError] = useState({ email: '', password: '' });
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
     [value, error]
   );
-  const navigate = useNavigate();
   useFormValidation(value, setError, 'login');
 
   const handleOnSubmit = async (e, provider, type) => {
@@ -25,7 +24,6 @@ function Login() {
     try {
       await dispatch(LoginThunk({ value, provider, type }));
       await dispatch(loadUserSession());
-      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -50,9 +48,10 @@ function Login() {
         onChange={handleOnChange}
       />
       <div className="flex items-center flex-col justify-between gap-4">
+        {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
         <button
           type="button"
-          className="w-full py-3 bg-primary text-white font-semibold shadow-md rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 cursor-not-allowed"
+          className={`w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           onClick={(e) => handleOnSubmit(e)}
           disabled={isDisabled}
         >

@@ -26,6 +26,7 @@ const loginSlice = createSlice({
       .addCase(LoginThunk.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loading = false;
+        window.location.href = '/';
       })
       .addCase(LoginThunk.rejected, (state, action) => {
         state.error = action.payload;
