@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
 import { darkModeType } from '../redux/store/DarkModeSlice.js';
 import { OnLogout } from '../redux/store/LoginSlice.js';
-import { loadUserSession } from '../redux/thunk/loginThunk.js';
 import LogoutThunk from '../redux/thunk/LogoutThunk.js';
 
 function Header() {
@@ -15,13 +14,10 @@ function Header() {
   const dispatch = useDispatch();
   const login = useSelector((state) => state.OnLogin);
 
-  const handleLogout = () => {
-    dispatch(LogoutThunk(OnLogout));
+  const handleLogout = async () => {
+    await dispatch(LogoutThunk());
+    dispatch(OnLogout());
   };
-
-  useEffect(() => {
-    dispatch(loadUserSession());
-  }, [dispatch, login?.user]);
 
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
