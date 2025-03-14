@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router';
 import supabase from '../../supabaseClient.js';
 
 function useSignUp(value, setError, setMessage, validate) {
+  const navigate = useNavigate();
   return async (e) => {
     e.preventDefault();
     const newError = validate();
@@ -16,6 +18,7 @@ function useSignUp(value, setError, setMessage, validate) {
     });
 
     if (data) {
+      navigate('/');
       setMessage('성공');
     } else {
       setMessage(`오류${error}`);
