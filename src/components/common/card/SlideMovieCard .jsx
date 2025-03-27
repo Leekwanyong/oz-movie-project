@@ -17,6 +17,7 @@ function SlideMovieCard({ item }) {
           className="object-cover w-full h-full rounded-md mr-4"
           src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
           alt={item?.title}
+          loading="lazy"
         />
 
         <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
