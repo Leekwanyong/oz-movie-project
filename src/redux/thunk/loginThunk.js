@@ -4,31 +4,28 @@ import supabase from '../../../supabaseClient.js';
 export const LoginThunk = createAsyncThunk(
   'loginThunk',
   async ({ value, provider, type }, { rejectWithValue }) => {
-    let responseData, error;
+    let data, error;
     try {
       if (provider && type === 'google') {
-        ({ data: responseData, error } = await supabase.auth.signInWithOAuth({
+        ({ data, error } = await supabase.auth.signInWithOAuth({
           provider,
           options: { queryParams: { access_type: 'offline', prompt: 'consent' } },
         }));
       } else if (provider && type === 'github') {
-        ({ data: responseData, error } = await supabase.auth.signInWithOAuth({
+        ({ data, error } = await supabase.auth.signInWithOAuth({
           provider,
         }));
       } else {
-        ({ data: responseData, error } = await supabase.auth.signInWithPassword({
+        ({ data, error } = await supabase.auth.signInWithPassword({
           email: value.email,
           password: value.password,
         }));
       }
 
-      if (!responseData.session) {
-        return rejectWithValue('로그인 실패');
-      }
       if (error) {
-        return rejectWithValue(error);
+        return new Error(error);
       }
-      return responseData.session.user;
+      return data.session ? data.session.user : null;
     } catch (e) {
       return rejectWithValue(e.message);
     }
