@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router';
 
 function SlideMovieCard({ item }) {
@@ -15,9 +14,9 @@ function SlideMovieCard({ item }) {
         onClick={handleOnNavigate}
       >
         <img
-          className="object-cover w-full h-full rounded-md"
+          className="object-cover w-full h-full rounded-md mr-4"
           src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
-          alt="포스터"
+          alt={item?.title}
         />
 
         <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
