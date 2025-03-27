@@ -13,7 +13,8 @@ function useImageHook() {
 
         observer.unobserve(target);
       });
-    });
+    },
+      {threshold: 0.5});
     observer.observe(observerRef.current);
     return () => {
       observer.disconnect();
