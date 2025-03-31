@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import ReactPlayer from 'react-player';
 import { useNavigate, useParams } from 'react-router';
 import { getMovieDetail } from '../../../api/getMovieApi.js';
+import { IMAGE_SIZE } from '../../../constant/imageSize.js';
+import { YOUTUBE_URL } from '../../../constant/youtubeUrl.js';
 import { useModalVideoQuery } from '../../../hook/useGetMovieQuery.js';
 import useVideoFilter from '../../../hook/useVideoFilter.js';
 
@@ -35,12 +36,12 @@ function Modal() {
         <div className="w-full aspect-video">
           {hasVideo ? (
             filteredVideos?.map((video) => (
-             <iframe src={`https://www.youtube.com/embed/${video?.key}`} key={video?.id}  className='w-full h-full object-cover'/>
+             <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id}  className='w-full h-full object-cover'/>
             ))
           ) : (
             <img
               className="  object-cover w-full h-full rounded-lg"
-              src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+              src={`${IMAGE_SIZE.large}${data?.backdrop_path}`}
               alt={data?.title}
             />
           )}

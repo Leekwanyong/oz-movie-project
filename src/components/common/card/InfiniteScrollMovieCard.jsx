@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { IMAGE_SIZE } from '../../../constant/imageSize.js';
 import useImgOnError from '../../../hook/useImgOnError.js';
 import useLazyImage from '../../../hook/useLazyImage.js';
 
@@ -18,7 +19,7 @@ function InfiniteScrollMovieCard({ item }) {
       >
         <img
           className="  object-cover w-full h-full rounded-lg"
-          data-src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
+          data-src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
           alt={item?.title}
           ref={imageRef}
           onError={handleImgError}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router';
 import Information from '../../components/common/Icon/Information.jsx';
 import Play from '../../components/common/Icon/Play.jsx';
+import { YOUTUBE_URL } from '../../constant/youtubeUrl.js';
 import { useGetMovieQuery } from '../../hook/useGetMovieQuery.js';
 import useVideoFilter from '../../hook/useVideoFilter.js';
 
@@ -24,7 +24,7 @@ function HeroSection() {
     <section className="w-full h-[50rem] mt-20  relative " onMouseMove={() => setPlayer(true)}>
       {player ? video?.map((item) => (
         <div className='w-full h-full' key={item?.id}>
-        <iframe src={`https://www.youtube.com/embed/${item?.key}`} className='w-full h-full object-cover'/>
+        <iframe src={`${YOUTUBE_URL}${item?.key}`} className='w-full h-full object-cover'/>
         </div>
       )) :
           <img src={`${youtubeImg}${video[0]?.key}/maxresdefault.jpg`} alt={video[0]?.type}  className='object-cover w-full h-full'/>
