@@ -15,11 +15,13 @@ function useGetQueriesData() {
     }),
   });
 
+  const isLoading = userQueriesList.some(q => q.isLoading);
+
   const queriesData = useMemo(
     () => userQueriesList.map((item) => item.data?.results?.map((v) => v)),
     [userQueriesList]
   );
-  return { data: CATEGORIES, queriesData };
+  return { data: CATEGORIES, queriesData, isLoading };
 }
 
 export default useGetQueriesData;
