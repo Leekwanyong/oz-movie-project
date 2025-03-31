@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadUserSession, LoginThunk } from '../thunk/loginThunk.js';
+import { loadUserSession } from '../thunk/loginThunk.js';
 
 const initialState = {
   user: null,
@@ -19,19 +19,6 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(LoginThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(LoginThunk.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.loading = false;
-        window.location.href = '/';
-      })
-      .addCase(LoginThunk.rejected, (state, action) => {
-        state.error = action.payload;
-        state.loading = false;
-      })
       .addCase(loadUserSession.pending, (state) => {
         state.loading = true;
       })

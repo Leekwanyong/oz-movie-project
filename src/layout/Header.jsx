@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import useScroll from '../hook/useScroll.js';
@@ -22,6 +22,9 @@ function Header() {
   const handleOnToggle = () => {
     setOpen((prev) => !prev);
   };
+
+  const userMeta = login.user?.user_metadata;
+  const profileImg = userMeta?.avatar_url || userMeta?.picture;
 
   return (
     <header
@@ -57,9 +60,13 @@ function Header() {
         </button>
         <ul className="hidden lg:flex items-center ml-4 gap-8     text-white text-sm cursor-pointer">
           <li className="hover:text-primary">
-            {login?.user ? (
+            {userMeta ? (
               <div className="flex items-center gap-8">
-                <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
+                {login?.user !== null ? (
+                  <p>환영합니다.</p>
+                ) : (
+                  <img src={profileImg} className="w-10 h-10 rounded-full" alt="프로필 이미지" />
+                )}
                 <button type="button" onClick={handleLogout}>
                   로그아웃
                 </button>
@@ -69,6 +76,7 @@ function Header() {
                 <button>로그인</button>
               </Link>
             )}
+
           </li>
           <Link to="/singup">
             <li className="hover:text-primary">회원가입</li>

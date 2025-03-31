@@ -20,22 +20,22 @@ function Login() {
   );
   useFormValidation(value, setError, 'login');
 
-  const handleOnSubmit = async (provider) => {
-    if (provider === 'google') {
-      await supabase.auth.signInWithOAuth({
-        provider,
+  const handleOnSubmit = async (provider, type) => {
+    let data, error;
+    if (provider && type === 'google') {
+      ({ data, error } = await supabase.auth.signInWithOAuth({
+        provider: type,
         options: {
+          scopes: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
           queryParams: { access_type: 'offline', prompt: 'consent' },
-          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
+          redirectTo: "https://oz-movie-project-zeta.vercel.app/auth/callback",
+
         },
-      });
-    } else if (provider === 'github') {
-      await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
-        },
-      });
+      }));
+    } else if (provider && type === 'github') {
+      ({ data, error } = await supabase.auth.signInWithOAuth({
+        provider: type,
+      }));
     } else {
       const {_,  error } = await supabase.auth.signInWithPassword({
         email: value.email,
@@ -51,6 +51,7 @@ function Login() {
         console.log('로그인 실패:', error.message);
       }
     }
+
   };
 
 
@@ -86,7 +87,7 @@ function Login() {
         <button
           type="button"
           className="w-full py-3 bg-white  border border-gray-300  shadow-md text-black font-semibold rounded-md  "
-          onClick={() => handleOnSubmit('google')}
+          onClick={() => handleOnSubmit('google', 'google')}
           disabled={false}
         >
           Google
@@ -94,7 +95,7 @@ function Login() {
         <button
           type="button"
           className="w-full py-3 bg-neutral-700 text-white font-semibold shadow-md rounded-md hover:bg-gray transition-all duration-300"
-          onClick={() => handleOnSubmit('github')}
+          onClick={() => handleOnSubmit('github', 'github')}
           disabled={false}
         >
           Github
