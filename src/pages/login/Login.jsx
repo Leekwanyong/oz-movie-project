@@ -39,14 +39,11 @@ function Login() {
      const {_,error} = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
-       options: {
-         redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
-       }
       });
 
-      console.log('asdasdasdasdasdsa');
       if (!error) {
         dispatch(loadUserSession());
+        window.location.href = '/'
       } else {
         console.log('로그인 실패:', error.message);
       }
