@@ -18,7 +18,7 @@ function SlideMovieCard({ item }) {
       >
         <img
           className="object-cover w-full h-full rounded-md mr-4"
-          src={`${IMAGE_SIZE}${item?.backdrop_path}`}
+          src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
           alt={item?.title}
           loading="lazy"
           onError={handleImgError}
