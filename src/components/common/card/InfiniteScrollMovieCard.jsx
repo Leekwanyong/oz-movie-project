@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router';
-import useImageHook from '../../../hook/useImageHook.js';
+import useImgOnError from '../../../hook/useImgOnError.js';
+import useLazyImage from '../../../hook/useLazyImage.js';
 
 function InfiniteScrollMovieCard({ item }) {
-  const imageRef = useImageHook();
+  const imageRef = useLazyImage();
   const navigate = useNavigate();
+  const handleImgError = useImgOnError();
 
   const handleOnNavigate = () => {
     navigate(`/movieDetailModal/${item.id}`);
@@ -19,6 +21,7 @@ function InfiniteScrollMovieCard({ item }) {
           data-src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
           alt={item?.title}
           ref={imageRef}
+          onError={handleImgError}
         />
         <p className="text-lg font-semibold drop-shadow-md">{item?.title}</p>
         <p className=" text-grayDark text-sm drop-shadow-md">평점: ⭐ {item?.vote_average}</p>
