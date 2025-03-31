@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import supabase from '../../../supabaseClient.js';
 import Input from '../../components/common/Input/Input.jsx';
 import useForm from '../../hook/useForm.js';
 import useFormValidation from '../../hook/useFormValidation.js';
-import { loadUserSession, LoginThunk } from '../../redux/thunk/loginThunk.js';
+import { loadUserSession } from '../../redux/thunk/loginThunk.js';
 
 function Login() {
   const { value, handleOnChange } = useForm({
@@ -19,15 +20,37 @@ function Login() {
   );
   useFormValidation(value, setError, 'login');
 
-  const handleOnSubmit = async (e, provider, type) => {
-    e.preventDefault();
-    try {
-      await dispatch(LoginThunk({ value, provider, type }));
-      await dispatch(loadUserSession());
-    } catch (err) {
-      console.log(err);
+  const handleOnSubmit = async (provider) => {
+    if (provider === 'google') {
+      await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          queryParams: { access_type: 'offline', prompt: 'consent' },
+          redirectTo: 'https://oz-movie-project-zeta.vercel.app/auth/callback',
+        },
+      });
+    } else if (provider === 'github') {
+      await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: 'https://oz-movie-project-zeta.vercel.app/auth/callback',
+        },
+      });
+    } else {
+      const {_,  error } = await supabase.auth.signInWithPassword({
+        email: value.email,
+        password: value.password,
+      });
+
+      if (!error) {
+        dispatch(loadUserSession());
+      } else {
+        console.log('로그인 실패:', error.message);
+      }
     }
   };
+
+
 
   return (
     <form className="text-white bg-gray mt-28 border p-10 space-y-6 max-w-lg mx-auto shadow-lg rounded-lg">
@@ -52,7 +75,7 @@ function Login() {
         <button
           type="button"
           className={`w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-all duration-300 disabled:opacity-50 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-          onClick={(e) => handleOnSubmit(e)}
+          onClick={() => handleOnSubmit()}
           disabled={isDisabled}
         >
           로그인
@@ -60,14 +83,16 @@ function Login() {
         <button
           type="button"
           className="w-full py-3 bg-white  border border-gray-300  shadow-md text-black font-semibold rounded-md  "
-          onClick={(e) => handleOnSubmit(e, 'google', 'google')}
+          onClick={() => handleOnSubmit('google')}
+          disabled={false}
         >
           Google
         </button>
         <button
           type="button"
           className="w-full py-3 bg-neutral-700 text-white font-semibold shadow-md rounded-md hover:bg-gray transition-all duration-300"
-          onClick={(e) => handleOnSubmit(e, 'github', 'github')}
+          onClick={() => handleOnSubmit('github')}
+          disabled={false}
         >
           Github
         </button>
