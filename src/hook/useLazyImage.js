@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function useImageHook() {
+function useLazyImage() {
   const observerRef = useRef(null);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ function useImageHook() {
   return observerRef;
 }
 
-export default useImageHook;
+export default useLazyImage;

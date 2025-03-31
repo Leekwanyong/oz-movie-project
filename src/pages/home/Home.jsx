@@ -3,7 +3,9 @@ import useGetQueriesData from '../../hook/useGetQueriesData.js';
 import HeroSection from './HeroSection.jsx';
 
 function Home() {
-  const { data, queriesData } = useGetQueriesData();
+  const { data, queriesData, isLoading } = useGetQueriesData();
+
+
 
   return (
     <main>
@@ -11,7 +13,7 @@ function Home() {
       {data.map((category, index) => (
         <div key={category} className=" flex items-start flex-col justify-between mt-16">
           <p className="text-xl text-white font-semibold mt-8 ">{category}</p>
-          <Slider items={queriesData[index]} />
+          <Slider items={queriesData[index]} isLoading={isLoading[index]} />
         </div>
       ))}
     </main>

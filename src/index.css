@@ -12,12 +12,12 @@ body {
 
 .swiper-button-prev,
 .swiper-button-next  {
-    @apply hidden relative ;
+    @apply  relative block;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-    @apply h-[21.3rem]    hidden bg-darkGray opacity-90 text-white w-full px-6 py-[100%] hover:inline-flex items-center justify-center ease-in-out duration-300 ;
+    @apply h-[21.3rem]   bg-darkGray opacity-90 text-white w-full px-6 py-[100%] inline-flex items-center justify-center ease-in-out duration-300 ;
 }
 
 .swiper-button-prev::after {
