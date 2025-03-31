@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { imageSize } from '../../../constant/imageSize.js';
+import { IMAGE_SIZE } from '../../../constant/imageSize.js';
 import useImgOnError from '../../../hook/useImgOnError.js';
 
 function SlideMovieCard({ item }) {
@@ -18,7 +18,7 @@ function SlideMovieCard({ item }) {
       >
         <img
           className="object-cover w-full h-full rounded-md mr-4"
-          src={`${imageSize.smail}${item?.backdrop_path}`}
+          src={`${IMAGE_SIZE}${item?.backdrop_path}`}
           alt={item?.title}
           loading="lazy"
           onError={handleImgError}
