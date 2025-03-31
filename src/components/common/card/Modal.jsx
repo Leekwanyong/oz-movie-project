@@ -35,14 +35,7 @@ function Modal() {
         <div className="w-full aspect-video">
           {hasVideo ? (
             filteredVideos?.map((video) => (
-              <ReactPlayer
-                key={video?.id}
-                width="100%"
-                height="100%"
-                url={`https://www.youtube.com/embed/${video?.key}`}
-                playing={true}
-                volume={0.3}
-              />
+             <iframe src={`https://www.youtube.com/embed/${video?.key}`} key={video?.id}  className='w-full h-full object-cover'/>
             ))
           ) : (
             <img
