@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import supabase from '../../../supabaseClient.js';
+import { getSupabaseClient } from '../../utils/getSupabaseClient.js';
 
 export const LoginThunk = createAsyncThunk(
   'loginThunk',
   async ({ value, provider, type }, { rejectWithValue }) => {
     let data, error;
     try {
+      const supabase = await getSupabaseClient();
       if (provider && type === 'google') {
         ({ data, error } = await supabase.auth.signInWithOAuth({
           provider,
@@ -33,6 +34,7 @@ export const LoginThunk = createAsyncThunk(
 );
 
 export const loadUserSession = createAsyncThunk('auth/loadSession', async () => {
+  const supabase = await getSupabaseClient();
   const { data } = await supabase.auth.getSession();
 
   return data.session ? data.session.user : null;
