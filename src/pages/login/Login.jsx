@@ -26,20 +26,23 @@ function Login() {
         provider,
         options: {
           queryParams: { access_type: 'offline', prompt: 'consent' },
-          redirectTo: 'https://oz-movie-project-zeta.vercel.app/auth/callback',
+          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
         },
       });
     } else if (provider === 'github') {
       await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: 'https://oz-movie-project-zeta.vercel.app/auth/callback',
+          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
         },
       });
     } else {
       const {_,  error } = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
+        options: {
+          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
+        }
       });
 
       if (!error) {
