@@ -23,9 +23,13 @@ function Header() {
     setOpen((prev) => !prev);
   };
 
+
   const userMeta = login.user?.user_metadata;
   const profileImg = userMeta?.avatar_url || userMeta?.picture;
 
+
+
+  console.log(userMeta, profileImg);
   return (
     <header
       className={`fixed  top-0 left-0 w-full ${scroll ? 'bg-black' : 'bg-gradient-to-b from-black/70 via-black/50 to-transparent'}  px-6 py-4 z-10`}

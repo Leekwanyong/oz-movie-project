@@ -21,20 +21,22 @@ function Login() {
   useFormValidation(value, setError, 'login');
 
   const handleOnSubmit = async (provider, type) => {
-    let data, error;
     if (provider && type === 'google') {
-      ({ data, error } = await supabase.auth.signInWithOAuth({
+       await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
           queryParams: { access_type: 'offline', prompt: 'consent' },
         },
-      }));
+      });
     } else if (provider && type === 'github') {
-      ({ data, error } = await supabase.auth.signInWithOAuth({
+       await supabase.auth.signInWithOAuth({
         provider: type,
-      }));
+        options: {
+          scopes: 'read:user'
+        }
+      });
     } else {
-      const {_,  error } = await supabase.auth.signInWithPassword({
+      await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
         options: {
