@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import supabase from '../../../supabaseClient.js';
 import Input from '../../components/common/Input/Input.jsx';
 import useForm from '../../hook/useForm.js';
 import useFormValidation from '../../hook/useFormValidation.js';
 import { loadUserSession } from '../../redux/thunk/loginThunk.js';
+import { getSupabaseClient } from '../../utils/getSupabaseClient.js';
 
 function Login() {
   const { value, handleOnChange } = useForm({
@@ -21,23 +21,20 @@ function Login() {
   useFormValidation(value, setError, 'login');
 
   const handleOnSubmit = async (provider, type) => {
-    let data, error;
+    const supabase = getSupabaseClient();
     if (provider && type === 'google') {
-      ({ data, error } = await supabase.auth.signInWithOAuth({
+      await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
-          scopes: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
           queryParams: { access_type: 'offline', prompt: 'consent' },
-          redirectTo: "https://oz-movie-project-zeta.vercel.app/auth/callback",
-
         },
-      }));
+      });
     } else if (provider && type === 'github') {
-      ({ data, error } = await supabase.auth.signInWithOAuth({
+       await supabase.auth.signInWithOAuth({
         provider: type,
-      }));
+      });
     } else {
-      const {_,  error } = await supabase.auth.signInWithPassword({
+      await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
         options: {
@@ -51,7 +48,6 @@ function Login() {
         console.log('로그인 실패:', error.message);
       }
     }
-
   };
 
 

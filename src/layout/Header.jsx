@@ -62,11 +62,7 @@ function Header() {
           <li className="hover:text-primary">
             {userMeta ? (
               <div className="flex items-center gap-8">
-                {login?.user !== null ? (
-                  <p>환영합니다.</p>
-                ) : (
-                  <img src={profileImg} className="w-10 h-10 rounded-full" alt="프로필 이미지" />
-                )}
+                <img src={profileImg} className="w-10 h-10 rounded-full" alt="프로필 이미지" />
                 <button type="button" onClick={handleLogout}>
                   로그아웃
                 </button>
