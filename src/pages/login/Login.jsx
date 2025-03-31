@@ -32,18 +32,19 @@ function Login() {
        await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
-          scopes: 'read:user'
+          scopes: 'read:user',
         }
       });
     } else {
-      await supabase.auth.signInWithPassword({
+     const {_,error} = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
-        options: {
-          redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
-        }
+       options: {
+         redirectTo: 'https://oz-movie-project-zeta.vercel.app/',
+       }
       });
 
+      console.log('asdasdasdasdasdsa');
       if (!error) {
         dispatch(loadUserSession());
       } else {
