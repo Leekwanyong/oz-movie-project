@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import supabase from '../../../supabaseClient.js';
 import Input from '../../components/common/Input/Input.jsx';
 import useForm from '../../hook/useForm.js';
 import useFormValidation from '../../hook/useFormValidation.js';
 import { loadUserSession } from '../../redux/thunk/loginThunk.js';
-import { getSupabaseClient } from '../../utils/getSupabaseClient.js';
 
 function Login() {
   const { value, handleOnChange } = useForm({
@@ -21,20 +21,20 @@ function Login() {
   useFormValidation(value, setError, 'login');
 
   const handleOnSubmit = async (provider, type) => {
-    const supabase = getSupabaseClient();
+    let data, error;
     if (provider && type === 'google') {
-      await supabase.auth.signInWithOAuth({
+      ({ data, error } = await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
           queryParams: { access_type: 'offline', prompt: 'consent' },
         },
-      });
+      }));
     } else if (provider && type === 'github') {
-       await supabase.auth.signInWithOAuth({
+      ({ data, error } = await supabase.auth.signInWithOAuth({
         provider: type,
-      });
+      }));
     } else {
-      await supabase.auth.signInWithPassword({
+      const {_,  error } = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
         options: {
@@ -48,6 +48,7 @@ function Login() {
         console.log('로그인 실패:', error.message);
       }
     }
+
   };
 
 
