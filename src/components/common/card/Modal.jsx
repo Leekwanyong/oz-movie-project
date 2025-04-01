@@ -39,11 +39,14 @@ function Modal() {
              <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id}  className='w-full h-full object-cover'/>
             ))
           ) : (
+            <picture>
+            <source srcSet={`${IMAGE_SIZE.large}${data?.backdrop_path}`} type='image/webp' />
             <img
               className="  object-cover w-full h-full rounded-lg"
               src={`${IMAGE_SIZE.large}${data?.backdrop_path}`}
               alt={data?.title}
             />
+            </picture>
           )}
         </div>
 

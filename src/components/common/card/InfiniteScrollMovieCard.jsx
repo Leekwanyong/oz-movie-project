@@ -17,13 +17,16 @@ function InfiniteScrollMovieCard({ item }) {
         className="flex flex-col gap-2 cursor-pointer h-[25rem] p-4 rounded-lg hover:scale-105  transition-transform hover:shadow-2xl"
         onClick={handleOnNavigate}
       >
+        <picture>
+          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type='image/webp' />
         <img
-          className="  object-cover w-full h-full rounded-lg"
+          className="object-cover w-full h-full rounded-lg"
           data-src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
           alt={item?.title}
           ref={imageRef}
           onError={handleImgError}
         />
+        </picture>
         <p className="text-lg font-semibold drop-shadow-md">{item?.title}</p>
         <p className=" text-grayDark text-sm drop-shadow-md">평점: ⭐ {item?.vote_average}</p>
       </div>

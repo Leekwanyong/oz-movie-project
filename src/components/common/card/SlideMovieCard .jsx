@@ -16,6 +16,8 @@ function SlideMovieCard({ item }) {
         className={`relative w-full rounded-md mt-4 max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 `}
         onClick={handleOnNavigate}
       >
+        <picture>
+          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type="image/webp" />
         <img
           className="object-cover w-full h-full rounded-md mr-4"
           src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
@@ -23,6 +25,7 @@ function SlideMovieCard({ item }) {
           loading="lazy"
           onError={handleImgError}
         />
+        </picture>
 
         <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
           <h3 className="text-white text-lg font-bold">영화 제목: {item?.title}</h3>
