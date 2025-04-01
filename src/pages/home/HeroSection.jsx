@@ -27,7 +27,9 @@ function HeroSection() {
         <iframe src={`${YOUTUBE_URL}${item?.key}`} className='w-full h-full object-cover'/>
         </div>
       )) :
+        <div className='aspect-[16/9] w-full'>
           <img src={`${youtubeImg}${video[0]?.key}/maxresdefault.jpg`} alt={video[0]?.type}  className='object-cover w-full h-full'/>
+        </div>
       }
       <div className="absolute top-[70%] left-[2%]">
         <div className="flex items-center justify-between gap-8 font-semibold">
