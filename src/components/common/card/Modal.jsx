@@ -36,14 +36,16 @@ function Modal() {
         <div className="w-full aspect-video">
           {hasVideo ? (
             filteredVideos?.map((video) => (
-             <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id}  className='w-full h-full object-cover'/>
+             <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id} width={1280} height={720}  className='w-full h-auto object-cover'/>
             ))
           ) : (
             <picture>
             <source srcSet={`${IMAGE_SIZE.large}${data?.backdrop_path}`} type='image/webp' />
             <img
-              className="  object-cover w-full h-full rounded-lg"
+              className="object-cover w-full h-auto rounded-lg"
               src={`${IMAGE_SIZE.large}${data?.backdrop_path}`}
+              width={1280}
+              height={720}
               alt={data?.title}
             />
             </picture>

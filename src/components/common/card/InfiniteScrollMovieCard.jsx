@@ -18,11 +18,13 @@ function InfiniteScrollMovieCard({ item }) {
         onClick={handleOnNavigate}
       >
         <picture>
-          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type='image/webp' />
+          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type='image/webp' width={445} height={400}/>
         <img
           className="object-cover w-full h-full rounded-lg"
           data-src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
           alt={item?.title}
+          width={445}
+          height={400}
           ref={imageRef}
           onError={handleImgError}
         />

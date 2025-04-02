@@ -16,12 +16,14 @@ function SlideMovieCard({ item }) {
         className={`relative w-full rounded-md mt-4 max-w-[350px] h-[10rem] cursor-pointer transition-transform duration-300 `}
         onClick={handleOnNavigate}
       >
-        <picture>
-          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type="image/webp" />
+        <picture className='w-full aspect-video'>
+          <source srcSet={`${IMAGE_SIZE.smail}${item?.backdrop_path}`} type="image/webp" width={350} height={160}/>
         <img
-          className="object-cover w-full h-full rounded-md mr-4"
+          className="object-cover w-full h-auto rounded-md mr-4"
           src={`${IMAGE_SIZE.smail}${item?.backdrop_path}`}
           alt={item?.title}
+          width={350}
+          height={160}
           loading="lazy"
           onError={handleImgError}
         />
