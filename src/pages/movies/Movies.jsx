@@ -23,8 +23,8 @@ function Movies() {
 
   return (
     <div className="mt-28 grid grid-cols-2 lg:grid-cols-4 items-center justify-between gap-4">
-      {movies?.map((movie, i) => (
-          <InfiniteScrollMovieCard key={movie.id + '-' + i} item={movie} />
+      {movies?.map((movie) => (
+          <InfiniteScrollMovieCard key={movie.id} item={movie} />
         )
       )}
       {isEmptySearch && <p>검색 결과가 없습니다.</p>}
