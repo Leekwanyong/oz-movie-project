@@ -1,6 +1,6 @@
 import {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import useScroll from '../hook/useScroll.js';
 import SearchBar from '../pages/home/SearchBar.jsx';
 import { darkModeType } from '../redux/store/DarkModeSlice.js';
@@ -13,6 +13,7 @@ function Header() {
   const dark = useSelector((state) => state.darkMode.darkMode);
   const dispatch = useDispatch();
   const login = useSelector((state) => state.OnLogin);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     await dispatch(LogoutThunk());
@@ -37,16 +38,16 @@ function Header() {
 
         <nav className={`w-[70%] hidden lg:block `}>
           <ul className="flex items-center gap-6 text-lg text-white  ">
-            <Link to="/">
+            <button onClick={() => navigate('/')}>
               <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
                 홈
               </li>
-            </Link>
-            <Link to="/movies">
+            </button>
+            <button onClick={() => navigate('/movies')}>
               <li className="cursor-pointer hover:text-gray-300 transition-colors hover:text-primary">
                 영화
               </li>
-            </Link>
+            </button>
           </ul>
         </nav>
         <div className="block ml-auto">
@@ -74,9 +75,9 @@ function Header() {
             )}
 
           </li>
-          <Link to="/singup">
+          <button onClick={() => navigate('/singup')}>
             <li className="hover:text-primary">회원가입</li>
-          </Link>
+          </button>
         </ul>
         <div className="flex items-center lg:hidden">
           {login.user && (
@@ -98,18 +99,30 @@ function Header() {
 `}
       >
         <nav className="flex flex-col items-center gap-6 text-lg text-white  ">
-          <Link to="/" className="hover:text-primary  " onClick={() => setOpen(false)}>
+          <button className='hover:text-primary' onClick={() => {
+            setOpen(false);
+            navigate('/')
+          }}>
             홈
-          </Link>
-          <Link to="/movies" className="hover:text-primary " onClick={() => setOpen(false)}>
+          </button>
+          <button className='hover:text-primary' onClick={() => {
+            setOpen(false);
+            navigate('/movies')
+          }}>
             영화
-          </Link>
-          <Link to="/login" className="hover:text-primary " onClick={() => setOpen(false)}>
+          </button>
+          <button className='hover:text-primary' onClick={() => {
+            setOpen(false);
+            navigate('/login')
+          }}>
             로그인
-          </Link>
-          <Link to="/singup" className="hover:text-primary " onClick={() => setOpen(false)}>
-            회원가입
-          </Link>
+            setOpen(false);
+        </button>
+          <button className='hover:text-primary' onClick={() => {
+            navigate('/singup')
+          }}>
+            로그인
+          </button>
         </nav>
       </div>
     </header>
