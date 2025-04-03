@@ -21,12 +21,12 @@ function Home() {
     <main>
       <HeroSection />
       {data.map((category, index) => (
-        <div key={category} className=" flex items-start flex-col justify-between mt-16">
+        <section key={category} className=" flex items-start flex-col justify-between mt-16">
           <p className="text-xl text-white font-semibold mt-8 ">{category}</p>
           <Suspense fallback={suspense}>
           <Slider items={queriesData[index]} isLoading={isLoading[index]} />
           </Suspense>
-        </div>
+        </section>
       ))}
     </main>
   );
