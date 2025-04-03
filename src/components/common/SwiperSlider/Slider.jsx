@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { A11y, Navigation, Pagination } from 'swiper/modules';
+import { A11y, Navigation, Pagination, Virtual } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -18,13 +18,14 @@ function Slider({ items = [], isLoading }) {
       <SlideMovieCard item={item} isLoading={isLoading}/>
     </SwiperSlide>)
   return (
-    <div className="mx-auto w-full">
+    <article className="mx-auto w-full">
       {memoizer.length > 0 && (
         <Swiper
-          modules={[A11y, Navigation, Pagination]}
+          modules={[A11y, Navigation, Pagination, Virtual]}
           pagination={true}
           navigation={true}
           spaceBetween={10}
+          virtual={true}
           speed={1000}
           loop={true}
           breakpoints={{
@@ -37,7 +38,7 @@ function Slider({ items = [], isLoading }) {
           {movies}
         </Swiper>
       )}
-    </div>
+    </article>
   );
 }
 
