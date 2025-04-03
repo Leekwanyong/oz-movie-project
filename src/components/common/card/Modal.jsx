@@ -6,6 +6,7 @@ import { getMovieDetail } from '../../../api/getMovieApi.js';
 import { IMAGE_SIZE } from '../../../constant/imageSize.js';
 import { YOUTUBE_URL } from '../../../constant/youtubeUrl.js';
 import { useModalVideoQuery } from '../../../hook/useGetMovieQuery.js';
+import useMeta from '../../../hook/useMeta.js';
 import useVideoFilter from '../../../hook/useVideoFilter.js';
 
 function Modal() {
@@ -17,6 +18,11 @@ function Modal() {
     queryKey: ['movieDetail'],
     queryFn: () => getMovieDetail(params?.id),
   });
+  useMeta({
+    title: data?.title,
+    description: data?.overview,
+    image: data?.backdrop_path,
+  })
 
   const closeModal = () => {
     navigate(-1);
@@ -33,10 +39,10 @@ function Modal() {
         className="bg-[#181818] rounded-lg shadow-lg w-[90vw] h-[90vh] max-w-[1000px] max-h-[1000px] overflow-hidden sm:w-[95vw] sm:h-[80vh] sm:max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full aspect-video">
+        <div className="w-full  aspect-video">
           {hasVideo ? (
             filteredVideos?.map((video) => (
-             <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id} width={1280} height={720}  className='w-full h-auto object-cover'/>
+             <iframe src={`${YOUTUBE_URL}${video?.key}`} key={video?.id} width={1280} height={720}  className='w-full h-full object-cover'/>
             ))
           ) : (
             <picture>
