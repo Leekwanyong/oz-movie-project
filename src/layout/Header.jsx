@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import useScroll from '../hook/useScroll.js';
@@ -18,6 +18,7 @@ function Header() {
   const handleLogout = async () => {
     await dispatch(LogoutThunk());
     dispatch(OnLogout());
+    setOpen(false);
   };
 
   const handleOnToggle = () => {
@@ -73,7 +74,6 @@ function Header() {
                 <button>로그인</button>
               </Link>
             )}
-
           </li>
           <button onClick={() => navigate('/singup')}>
             <li className="hover:text-primary">회원가입</li>
@@ -81,12 +81,12 @@ function Header() {
         </ul>
         <div className="flex items-center lg:hidden">
           {login.user && (
-            <div className="flex items-center gap-8">
-              <img src={login.user?.user_metadata?.avatar_url} className="w-10 h-10" alt="" />
+            <div className="flex items-center gap-4">
+              <img src={profileImg} className="w-8 h-8 rounded-full" alt="프로필 이미지" />
             </div>
           )}
-          <button onClick={handleOnToggle} className={`ml-4`}>
-            {open ? 'x' : <p>Menu</p>}
+          <button onClick={handleOnToggle} className="ml-4 text-white hover:text-primary">
+            {open ? <span className="text-xl font-bold">✕</span> : <span>메뉴</span>}
           </button>
         </div>
       </div>
@@ -95,34 +95,54 @@ function Header() {
           open
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-10 scale-95 pointer-events-none'
-        } top-[9%] md:top-[6%] lg:hidden
+        } top-[6%] md:top-[6%] lg:hidden py-6
 `}
       >
-        <nav className="flex flex-col items-center gap-6 text-lg text-white  ">
-          <button className='hover:text-primary' onClick={() => {
-            setOpen(false);
-            navigate('/')
-          }}>
+        <nav className="flex flex-col items-center gap-6 text-lg text-white">
+          <button
+            className="hover:text-primary w-full text-center py-2"
+            onClick={() => {
+              setOpen(false);
+              navigate('/');
+            }}
+          >
             홈
           </button>
-          <button className='hover:text-primary' onClick={() => {
-            setOpen(false);
-            navigate('/movies')
-          }}>
+          <button
+            className="hover:text-primary w-full text-center py-2"
+            onClick={() => {
+              setOpen(false);
+              navigate('/movies');
+            }}
+          >
             영화
           </button>
-          <button className='hover:text-primary' onClick={() => {
-            setOpen(false);
-            navigate('/login')
-          }}>
-            로그인
-            setOpen(false);
-        </button>
-          <button className='hover:text-primary' onClick={() => {
-            navigate('/singup')
-          }}>
-            로그인
-          </button>
+          {userMeta ? (
+            <button className="hover:text-primary w-full text-center py-2" onClick={handleLogout}>
+              로그아웃
+            </button>
+          ) : (
+            <button
+              className="hover:text-primary w-full text-center py-2"
+              onClick={() => {
+                setOpen(false);
+                navigate('/login');
+              }}
+            >
+              로그인
+            </button>
+          )}
+          {!userMeta && (
+            <button
+              className="hover:text-primary w-full text-center py-2"
+              onClick={() => {
+                setOpen(false);
+                navigate('/singup');
+              }}
+            >
+              회원가입
+            </button>
+          )}
         </nav>
       </div>
     </header>
