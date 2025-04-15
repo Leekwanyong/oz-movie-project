@@ -8,23 +8,23 @@ const Slider = lazy(() => import('../../components/common/SwiperSlider/Slider.js
 
 function Home() {
   const { data, queriesData, isLoading } = useGetQueriesData();
-  const skeletonCount  = useResponsiveSkeletonCount('home');
-  const suspense =   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-    {Array.from({ length: skeletonCount }).map((_, i) => (
-      <SkeletonCard key={i} />
-    ))}
-  </div>
-
-
+  const skeletonCount = useResponsiveSkeletonCount('home');
+  const suspense = (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {Array.from({ length: skeletonCount }).map((_, i) => (
+        <SkeletonCard key={i} />
+      ))}
+    </div>
+  );
 
   return (
     <main>
       <HeroSection />
       {data.map((category, index) => (
         <section key={category} className=" flex items-start flex-col justify-between mt-16">
-          <p className="text-xl text-white font-semibold mt-8 ">{category}</p>
+          <p className="text-xl font-semibold mt-8 ">{category}</p>
           <Suspense fallback={suspense}>
-          <Slider items={queriesData[index]} isLoading={isLoading[index]} />
+            <Slider items={queriesData[index]} isLoading={isLoading[index]} />
           </Suspense>
         </section>
       ))}
@@ -33,3 +33,5 @@ function Home() {
 }
 
 export default Home;
+
+// 0.182
