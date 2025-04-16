@@ -13,13 +13,24 @@ function SingUp() {
     confirmPassword: '',
   });
   const [error, setError] = useState({ name: '', email: '', password: '', confirmPassword: '' });
-  const validate = useFormValidation(value, setError, TYPE);
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const validate = useFormValidation(value, setError, TYPE, touched);
   const [message, setMessage] = useState('');
   const handleSignUp = useSignUp(value, setError, setMessage, validate);
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
     [value, error]
   );
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
 
   return (
     <form
@@ -30,6 +41,7 @@ function SingUp() {
         name="email"
         value={value.email}
         onChange={handleOnChange}
+        onBlur={handleBlur}
         error={error.email}
         placeholder="이메일을 입력해주세요"
         type="email"
@@ -39,6 +51,7 @@ function SingUp() {
         name="name"
         value={value.name}
         onChange={handleOnChange}
+        onBlur={handleBlur}
         error={error.name}
         type="name"
         placeholder="이름을 입력해주세요."
@@ -48,6 +61,7 @@ function SingUp() {
         name="password"
         value={value.password}
         onChange={handleOnChange}
+        onBlur={handleBlur}
         error={error.password}
         placeholder="비밀번호를 입력해주세요."
         type="password"
@@ -57,6 +71,7 @@ function SingUp() {
         name="confirmPassword"
         value={value.confirmPassword}
         onChange={handleOnChange}
+        onBlur={handleBlur}
         error={error.confirmPassword}
         placeholder="비밀번호 확인을 입력해주세요."
         type="password"

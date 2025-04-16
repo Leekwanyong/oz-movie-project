@@ -12,46 +12,49 @@ function Login() {
     password: '',
   });
   const dispatch = useDispatch();
+  const [touched, setTouched] = useState({ email: false, password: false });
   const loginError = useSelector((state) => state.OnLogin.error);
   const [error, setError] = useState({ email: '', password: '' });
   const isDisabled = useMemo(
     () => Object.values(error).some((e) => e) || Object.values(value).some((v) => !v),
     [value, error]
   );
-  useFormValidation(value, setError, 'login');
+  useFormValidation(value, setError, 'login', touched);
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
 
   const handleOnSubmit = async (provider, type) => {
     if (provider && type === 'google') {
-       await supabase.auth.signInWithOAuth({
+      await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
           queryParams: { access_type: 'offline', prompt: 'consent' },
         },
       });
     } else if (provider && type === 'github') {
-       await supabase.auth.signInWithOAuth({
+      await supabase.auth.signInWithOAuth({
         provider: type,
         options: {
           scopes: 'read:user',
-        }
+        },
       });
     } else {
-     const {_,error} = await supabase.auth.signInWithPassword({
+      const { _, error } = await supabase.auth.signInWithPassword({
         email: value.email,
         password: value.password,
       });
 
       if (!error) {
         dispatch(loadUserSession());
-        window.location.href = '/'
+        window.location.href = '/';
       } else {
         console.log('로그인 실패:', error.message);
       }
     }
-
   };
-
-
 
   return (
     <form className="text-white bg-gray mt-28 border p-10 space-y-6 max-w-lg mx-auto shadow-lg rounded-lg">
@@ -62,6 +65,7 @@ function Login() {
         value={value.email}
         error={error.email}
         onChange={handleOnChange}
+        onBlur={handleBlur}
       />
       <Input
         name="password"
@@ -70,6 +74,7 @@ function Login() {
         value={value.password}
         error={error.password}
         onChange={handleOnChange}
+        onBlur={handleBlur}
       />
       <div className="flex items-center flex-col justify-between gap-4">
         {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
